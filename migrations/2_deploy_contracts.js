@@ -1,4 +1,4 @@
-var Sample = artifacts.require('./UpstateCoin.sol')
+var Sample = artifacts.require('./NewToken.sol')
 let _ = '        '
 
 module.exports = (deployer, helper, accounts) => {

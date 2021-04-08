@@ -1,23 +1,23 @@
-var UpstateCoin = artifacts.require('./UpstateCoin.sol')
+var NewToken = artifacts.require('./NewToken.sol')
 var BigNumber = require('bignumber.js')
 let gasPrice = 1000000000 // 1GWEI
 
 let _ = '        '
 
-contract('UpstateCoin', async function(accounts) {
-  let upstateCoin
+contract('NewToken', async function(accounts) {
+  let NewToken
 
   before(done => {
     ;(async () => {
       try {
         var totalGas = new BigNumber(0)
 
-        // Deploy upstateCoin.sol
-        upstateCoin = await upstateCoin.new()
-        var tx = await web3.eth.getTransactionReceipt(upstateCoin.transactionHash)
+        // Deploy NewToken.sol
+        NewToken = await NewToken.new()
+        var tx = await web3.eth.getTransactionReceipt(NewToken.transactionHash)
         totalGas = totalGas.plus(tx.gasUsed)
-        console.log(_ + tx.gasUsed + ' - Deploy upstateCoin')
-        upstateCoin = await upstateCoin.deployed()
+        console.log(_ + tx.gasUsed + ' - Deploy NewToken')
+        NewToken = await NewToken.deployed()
 
         console.log(_ + '-----------------------')
         console.log(_ + totalGas.toFormat(0) + ' - Total Gas')
