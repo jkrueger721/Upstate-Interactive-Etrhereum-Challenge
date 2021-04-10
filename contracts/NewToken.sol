@@ -6,7 +6,7 @@ contract NewToken is ERC20 {
     uint256 _endTime;
     uint256 _currentTime; 
     address payable owner;
-    uint256 value;
+   
 
   constructor(uint256 startTime, uint256 endTime)
    public {
@@ -15,12 +15,16 @@ contract NewToken is ERC20 {
       owner = msg.sender;
     
   } 
-    //  mint(owner, value);
+    
 
   modifier isOpen(){
     _currentTime = now;
     require(_currentTime >= _startTime && _currentTime <= _endTime,"Is outside of alloted time");
     _;
 
+  }
+
+  function payEth() isOpen external payable{ 
+    transfer(owner, msg.value);
   }
 }
