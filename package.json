@@ -31,7 +31,8 @@
     "@openzeppelin/contracts-upgradeable": "^4.0.0",
     "chai": "^4.3.4",
     "ethlint": "^1.2.5",
-    "mocha": "^8.3.2"
+    "mocha": "^8.3.2",
+    "truffle-assertions": "^0.9.2"
   },
   "repository": {
     "type": "git",
