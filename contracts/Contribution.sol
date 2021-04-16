@@ -1,16 +1,30 @@
 pragma solidity >=0.5.0;
 import "contracts/NewToken.sol";
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "../node_modules/openzeppelin-solidity/contracts/crowdsale/Crowdsale.sol";
 
-contract Contribution is NewToken {
+contract Contribution is NewToken, Crowdsale {
     using SafeMath for uint256;
     mapping(address => Contributor) contributors;
+    address payable owner;
 
-    constructor(uint256 startTime, uint256 endTime)
+    constructor(
+        uint256 startTime,
+        uint256 endTime,
+        string memory name,
+        string memory symbol,
+        uint8 decimals,
+        uint256 rate,
+        address payable wallet,
+        IERC20 token
+    )
         public
-        NewToken(startTime, endTime)
+        NewToken(startTime, endTime, name, symbol, decimals)
+        Crowdsale(rate, wallet, token)
     {
-        
+        owner = msg.sender;
+        mint(owner, 2500000);
+        wallet = owner;
     }
 
     modifier isOpen() {
@@ -27,7 +41,7 @@ contract Contribution is NewToken {
     event tokensTransfered(address to, uint256 amount);
 
     struct Contributor {
-        address contributorAddress;
+        address payable contributorAddress;
         uint256 contributionAmount;
     }
 
@@ -54,10 +68,10 @@ contract Contribution is NewToken {
 
         uint256 _amount = msg.value;
 
-        address _contributor = msg.sender;
+        address payable _contributor = msg.sender;
 
         uint256 _contributionAmount = 0;
-            
+
         contributors[_contributor].contributorAddress = _contributor;
 
         _contributionAmount == _contributionAmount.add(_amount);
